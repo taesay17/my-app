@@ -17,7 +17,7 @@ const DataFilterComponent = () => {
 
   const filteredData = data.filter(item =>
     item.name && typeof item.name === 'string' && item.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  ); //realized function
 
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
