@@ -19,6 +19,10 @@ const DataFilterComponent = () => {
     item.name && typeof item.name === 'string' && item.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  }
+
   return (
     <div className="data-filter-container">
       <input
