@@ -1,36 +1,47 @@
 import React, { useState, useEffect } from 'react';
 
-
 const DataFilterComponent = () => {
+ 
   const [data, setData] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [filteredData, setFilteredData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch('https://jsonplaceholder.typicode.com/users');
-      const data = await response.json();
-      setData(data);
+      const initialData = [
+        { id: 1, name: 'Aikan' },
+        { id: 2, name: 'Bektur' },
+        { id: 3, name: 'Asema' },
+        { id: 4, name: 'Dilnaz' },
+        { id: 5, name: 'Aleksandra' },
+        { id: 6, name: 'Roza' },
+        { id: 7, name: 'Anjelika' },
+        { id: 8, name: 'Bermet' },
+        { id: 9, name: 'Jarkynai' },
+        { id: 10, name: 'Aizhan' },
+      ];
+      setData(initialData); 
+      setFilteredData(initialData); 
     };
 
     fetchData();
   }, []);
 
-  const filteredData = data.filter(item =>
-    item.name && typeof item.name === 'string' && item.name.toLowerCase().includes(searchQuery.toLowerCase())
-  ); //realized function
 
-  const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value);
-  }
+  useEffect(() => {
+    const filtered = data.filter(item =>
+      item.name && item.name.toLowerCase().includes(searchQuery.toLowerCase()) 
+    );
+    setFilteredData(filtered);
+  }, [searchQuery, data]);
 
   return (
-    <div className="data-filter-container">
+    <div>
       <input
         type="text"
         placeholder="Введите имя для поиска"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        className="input-search"
       />
 
       <ul>
